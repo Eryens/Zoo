@@ -81,7 +81,7 @@ public abstract class Animal implements IAnimal {
 
 
     public void eat(FoodQuantity quantity) {
-        if (!isSleeping) {
+        if (!isSleeping && !isHungry) {
             if (quantity == FoodQuantity.ALot) {
                 hungerLevel = 0;
             }
@@ -91,6 +91,7 @@ public abstract class Animal implements IAnimal {
             else if (quantity == FoodQuantity.Little) {
                 hungerLevel -= 1;
             }
+            updateHunger();
         }
     } // eat
 
@@ -123,6 +124,22 @@ public abstract class Animal implements IAnimal {
         else {
             isHungry = false;
         }
+    }
+
+    public String getHungerLevelToString() {
+        switch(hungerLevel) {
+            case 0:
+                return "Not hungry";
+            case 1:
+                return "A little hungry";
+            case 2:
+                return "Hungry";
+            case 3:
+                return "Very hungry";
+            case 4:
+                return "Almost dead of hunger";
+        }
+        return "Hunger bug";
     }
 
     public void die() {
@@ -187,6 +204,7 @@ public abstract class Animal implements IAnimal {
     // ---------- ToString
 
     public void display() {
+        /*
         System.out.println("Nom: " + getSpecieName());
         System.out.println("Sexe: "+ getSex());
         System.out.println("Age: " + getAge());
@@ -194,6 +212,13 @@ public abstract class Animal implements IAnimal {
         System.out.println("Taille: " + getHeight());
         System.out.println("Faim: "+ isHungry());
         System.out.println("Santé: "+ getHealth());
-        System.out.println("Dort: " + isSleeping());
+        System.out.println("Dort: " + isSleeping());*/
+
+        System.out.println("Nom: " + getSpecieName() + " | Sexe: " + getSex() + " | Hunger: " + hungerLevel + " " + getHungerLevelToString() +
+        " | Health: " + health.toString());
+    }
+
+    public void setHunger(int Hunger) {
+        hungerLevel = Hunger;
     }
 }

@@ -24,7 +24,7 @@ public class Employee {
 
     public void checkCage(Cage cage) {
         System.out.println("L'employé vérifie la cage");
-        cage.display();
+        cage.displayAnimals();
     }
 
     public void cleanCage(Cage cage) {

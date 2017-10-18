@@ -8,7 +8,7 @@ public class main {
 
 
     public static void main(String[] args) {
-        Simulation.introduction();
+        //Simulation.introduction();
         Simulation.mainGame() ;
     }
 }

@@ -91,6 +91,8 @@ public class Tests {
         Whale whale = new Whale() ;
         Shark shark = new Shark() ;
 
+        Wolf wolf = new Wolf() ;
+
         Employee antoine = new Employee();
 
         try {

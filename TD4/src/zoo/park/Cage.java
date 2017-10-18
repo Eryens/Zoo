@@ -16,9 +16,11 @@ public class Cage<A extends IAnimal> {
     protected int numbersOfAnimalsInCage;
     protected ArrayList<A> animals ;
     protected Tidyness tidyness;
+    protected String type;
 
     public Cage() {
         name = "Cage";
+        type = "Normal";
         area = 50;
         capacity = 10;
         numbersOfAnimalsInCage = 0 ;
@@ -33,20 +35,18 @@ public class Cage<A extends IAnimal> {
         this.numbersOfAnimalsInCage = numbersOfAnimalsInCage;
         this.tidyness = tidyness;
         this.animals = animals;
+        type = "Normal";
     }
 
-    public String display() {
-        /*
-        System.out.println("Nom enclos: "+ name);
-        System.out.println("Superficie: "+ area);
-        System.out.println("Capacité maximale. " + capacity);
-        System.out.println("Animaux dans la cage: " + numbersOfAnimalsInCage);
-        System.out.println("Niveau de propreté: " + tidyness);
-
+    public void displayAnimals() {
         for (Iterator<A> animal = animals.iterator(); animal.hasNext(); ) {
             A currentAnimal = animal.next();
             currentAnimal.display();
-        }*/
+        }
+    }
+
+    public String display() {
+
         String statusSpeciesInCage;
         if (animals.isEmpty()) {
             statusSpeciesInCage = "empty";
@@ -54,8 +54,18 @@ public class Cage<A extends IAnimal> {
         else {
             statusSpeciesInCage = numbersOfAnimalsInCage + " " + animals.get(0).getSpecieName();
         }
-        String toReturn = statusSpeciesInCage + " | " + tidyness.toString() + " | Capacity : " + capacity ;
+        String toReturn = statusSpeciesInCage + " | " + tidyness.toString() + " | Capacity : " + capacity + " | " + type ;
         return toReturn;
+
+    }
+
+    public A getAnimaltype() {
+        if (!animals.isEmpty()) {
+            return animals.get(0);
+        }
+        else {
+            return null;
+        }
 
     }
 
@@ -99,5 +109,13 @@ public class Cage<A extends IAnimal> {
         else {
             System.out.println("La cage n'a pas pû être lavée");
         }
+    }
+
+    public Tidyness getTidyness() {
+        return tidyness;
+    }
+
+    public ArrayList<A> getAnimals() {
+        return animals;
     }
 }

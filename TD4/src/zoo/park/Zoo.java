@@ -30,15 +30,11 @@ public class Zoo {
         Aquarium cageSharks = new Aquarium();
         Aviary cageEagles = new Aviary();
 
-        Wolf wolf = new Wolf() ;
-        Shark shark = new Shark() ;
-        Eagle eagle = new Eagle() ;
-
         for (int i = 0 ; i < 5 ; ++i) {
             try {
-                cageWolves.addAnimal(wolf);
-                cageEagles.addAnimal(eagle);
-                cageSharks.addAnimal(shark);
+                cageWolves.addAnimal(new Wolf());
+                cageEagles.addAnimal(new Eagle());
+                cageSharks.addAnimal(new Shark());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,9 +46,9 @@ public class Zoo {
 
         // ajout de 3 cages vides
 
-        for (int i = 0 ; i < 3 ; ++i) {
-            cages.add(new Cage());
-        }
+        cages.add(new Cage());
+        cages.add(new Aviary());
+        cages.add(new Aquarium());
 
     }
 
@@ -91,6 +87,18 @@ public class Zoo {
         }
     }
 
+    public ArrayList<Animal> getAllAnimalsInZoo() {
+        ArrayList<Animal> animals = new ArrayList<Animal>();
+        for (Iterator<Cage> cage = cages.iterator(); cage.hasNext(); ) {
+            Cage currentCage = cage.next();
+            for (Iterator<Animal> animal = currentCage.getAnimals().iterator() ; animal.hasNext() ;) {
+                Animal currentAnimal = animal.next();
+                animals.add(currentAnimal);
+            }
+        }
+        return animals;
+    }
+
     // Changes randomly the health for all animals in the zoo
     public void randomlyChangeHealthofAnimals() {
         for (Iterator<Cage> cage = cages.iterator(); cage.hasNext(); ) { // Iterates through cages
@@ -107,6 +115,30 @@ public class Zoo {
                 }
                 else {
                     currentAnimal.setHealth(Health.Sick);
+                }
+            }
+        }
+    } // randomChangeHealthofAnimals
+
+    // Changes randomly the health for all animals in the zoo
+    public void randomlyChangeHungerofAnimals() {
+        for (Iterator<Cage> cage = cages.iterator(); cage.hasNext(); ) { // Iterates through cages
+            Cage currentCage = cage.next();
+
+            for (Iterator<Animal> animal = currentCage.animals.iterator(); animal.hasNext(); ) { // Iterates through animals in cages
+
+                Animal currentAnimal = animal.next();
+                Random randomGenerator = new Random() ; // Generates a random number
+                int randomHunger ;
+                randomHunger = randomGenerator.nextInt(2);
+                if (randomHunger == 0) {
+                    currentAnimal.setHunger(0);
+                }
+                else if (randomHunger == 1) {
+                    currentAnimal.setHunger(2);
+                }
+                else {
+                    currentAnimal.setHunger(3);
                 }
             }
         }
@@ -149,5 +181,13 @@ public class Zoo {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public int getMaxNumberOfCages() {
+        return maxNumberOfCage;
+    }
+
+    public ArrayList<Cage> getCages() {
+        return cages;
     }
 }
