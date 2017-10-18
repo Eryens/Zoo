@@ -40,6 +40,7 @@ public abstract class Animal implements IAnimal {
         this.specieName = "?";
 
         generateAnimal();
+        updateHunger();
     }
 
     public Animal(String specieName, Sexs sex, float weight, float height, int age, boolean isHungry, int hungerLevel, boolean isSleeping, Health health) {
@@ -52,6 +53,7 @@ public abstract class Animal implements IAnimal {
         this.hungerLevel = hungerLevel;
         this.isSleeping = isSleeping;
         this.health = health;
+        updateHunger();
     }
 
     protected void generateAnimal() {

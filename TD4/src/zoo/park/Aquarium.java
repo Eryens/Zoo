@@ -41,7 +41,7 @@ public class Aquarium extends Cage<Marine> {
     }
 
     public void clean() {
-        if (tidyness == Tidyness.Dirty && numbersOfAnimalsInCage == 0) {
+        if ((tidyness == Tidyness.Dirty || tidyness == Tidyness.Alright) && numbersOfAnimalsInCage == 0) {
             tidyness = Tidyness.Clean;
             System.out.println("L'employé vide le bassin pour le nettoyer et s'assure que l'eau est salée comme les larmes des joueurs de LoL");
         }

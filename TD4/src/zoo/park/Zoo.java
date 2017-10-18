@@ -30,7 +30,7 @@ public class Zoo {
         Aquarium cageSharks = new Aquarium();
         Aviary cageEagles = new Aviary();
 
-        for (int i = 0 ; i < 5 ; ++i) {
+        for (int i = 0 ; i < 2 ; ++i) {
             try {
                 cageWolves.addAnimal(new Wolf());
                 cageEagles.addAnimal(new Eagle());
@@ -133,6 +133,7 @@ public class Zoo {
                 randomHunger = randomGenerator.nextInt(2);
                 if (randomHunger == 0) {
                     currentAnimal.setHunger(0);
+                    currentAnimal.updateHunger();
                 }
                 else if (randomHunger == 1) {
                     currentAnimal.setHunger(2);

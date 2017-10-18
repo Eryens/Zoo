@@ -16,7 +16,7 @@ public class Simulation {
     private final static int NUMBER_OF_DAYS_IN_TURN = 5;
     private final static int NUMBER_OF_DAYS_UNTIL_SIMULATION_ENDS = 90;
 
-    private final static int VALUE_CLEAN_CAGE = 1000 ;
+    private final static int VALUE_CLEAN_CAGE = 300 ;
     private final static int VALUE_HUNGRY_ANIMAL = 50;
     private final static int VALUE_NOT_HUNGRY_ANIMAL = 100;
 
@@ -57,6 +57,7 @@ public class Simulation {
         System.out.println("Examiner un enclos - son nombre - (exemple: \"1\" )");
         System.out.println("Tente de nettoyer une cage - clean nombre - (exemple: \"clean 1\")");
         System.out.println("Déplace un annimal d'une cage a une autre - move nombreDe NombreA (exemple: \"move 1 4\")");
+        System.out.println("Nourrir les animaux d'une cage - feed nombre (exemple: \"feed 1\")");
         ScreenFunctions.emptyLine();
         System.out.println("Entrez n'importe quelle touche puis ENTREE pour quiter le man");
 
@@ -169,6 +170,7 @@ public class Simulation {
 
         for (Iterator<Animal> animal = allAnimals.iterator(); animal.hasNext() ; ) {
             Animal currentAnimal = animal.next() ;
+            currentAnimal.updateHunger();
             if (currentAnimal.isHungry()) {
                 numberOfHungryAnimals += 1;
             }
@@ -177,15 +179,18 @@ public class Simulation {
             }
         }
 
+        int hungryAnimalsPayValue =  numberOfHungryAnimals * VALUE_HUNGRY_ANIMAL;
+        System.out.println();
         System.out.println(numberOfCleanCage + " cages propres: " + numberOfCleanCage * VALUE_CLEAN_CAGE + "$");
         System.out.println(numberOfNotHungryAnimals + " animaux n'ont pas faim: " + numberOfNotHungryAnimals * VALUE_NOT_HUNGRY_ANIMAL + "$");
-        System.out.println(numberOfHungryAnimals + "animaux ont faim: -" + numberOfHungryAnimals + VALUE_HUNGRY_ANIMAL + "$");
+        System.out.println(numberOfHungryAnimals + " animaux ont faim: -" + hungryAnimalsPayValue + "$");
         calculatePay(numberOfCleanCage, numberOfHungryAnimals, numberOfNotHungryAnimals);
         System.out.println("Salaire actuel: " + playerMoney + "$");
 
         Scanner scanner = new Scanner(System.in) ;
         scanner.nextLine();
         ScreenFunctions.clearScreen();
+
 
 
     }
@@ -195,6 +200,12 @@ public class Simulation {
         playerMoney += ( VALUE_CLEAN_CAGE* numberOfCleanCage) ;
         playerMoney += ( VALUE_NOT_HUNGRY_ANIMAL * numberOfNotHungryAnimals);
         playerMoney -= ( VALUE_HUNGRY_ANIMAL * numberOfHungryAnimals);
+    }
+
+    public static void endGame() {
+        Payday();
+        System.out.println("La simulation est terminée!");
+        System.out.println("Vous avez récolté " + playerMoney + "$");
     }
 
     public static void mainGame() {
@@ -207,10 +218,13 @@ public class Simulation {
 
         while (time.getDays() < NUMBER_OF_DAYS_UNTIL_SIMULATION_ENDS) {
 
-            if (time.getDays() != 0 && time.getDays() % 15 == 0) {
+            if (time.getDays() % 15 == 0) {
+                Zoo.getInstance().randomlyChangeHungerofAnimals();
+            }
+            if (time.getDays() != 0 && time.getDays() % 30 == 0) {
                 Payday() ;
                 Zoo.getInstance().randomlyChangeTidynessOfCages();
-                Zoo.getInstance().randomlyChangeHungerofAnimals();
+
             }
 
             if (turn()) {
@@ -219,9 +233,7 @@ public class Simulation {
                 System.out.println("5 jours on passés, " + daysLeft + " jours restant");
             }
 
-
         }
-
 
     }
 }

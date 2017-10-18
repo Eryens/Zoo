@@ -102,7 +102,7 @@ public class Cage<A extends IAnimal> {
     }
 
     public void clean() {
-        if (tidyness == Tidyness.Dirty && numbersOfAnimalsInCage == 0) {
+        if ((tidyness == Tidyness.Dirty || tidyness == Tidyness.Alright) && numbersOfAnimalsInCage == 0) {
             tidyness = Tidyness.Clean;
             System.out.println("La cage a été lavée");
         }
